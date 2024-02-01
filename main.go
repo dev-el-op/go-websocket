@@ -35,7 +35,7 @@ func setupRoutes() {
 }
 
 func main() {
-	fmt.Println("Hello World")
 	setupRoutes()
 	http.ListenAndServe(":9000", nil)
+	fmt.Println("The websocket server is running on port 9000")
 }
