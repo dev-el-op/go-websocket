@@ -13,11 +13,14 @@ type Client struct {
 	Connection *websocket.Conn
 	Pool       *Pool
 	Mutex      sync.Mutex
+	Channel    string
+	AuthToken  string
 }
 
 type Message struct {
-	Type int    `json:"type"`
-	Body string `json:"body"`
+	Type    int    `json:"type"`
+	Body    string `json:"body"`
+	Channel string `json:"channel"`
 }
 
 func (client *Client) Read() {
@@ -35,7 +38,7 @@ func (client *Client) Read() {
 			return
 		}
 
-		message := Message{Type: messageType, Body: string(p)}
+		message := Message{Type: messageType, Body: string(p), Channel: client.Channel}
 
 		client.Pool.Broadcast <- message
 
